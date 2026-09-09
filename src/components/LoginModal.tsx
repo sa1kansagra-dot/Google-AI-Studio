@@ -55,7 +55,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
         {/* Modal Header */}
         <div className="text-center space-y-1.5 mb-5">
-          <div className={`w-12 h-12 rounded-2xl ${activeTab === 'staff' ? 'bg-indigo-100 text-indigo-600' : 'bg-emerald-100 text-emerald-600'} flex items-center justify-center mx-auto text-xl font-bold transition-colors`}>
+          <div className={`w-12 h-12 rounded-2xl ${activeTab === 'staff' ? 'bg-orange-100 text-primary' : 'bg-slate-800 text-amber-400'} flex items-center justify-center mx-auto text-xl font-bold transition-colors`}>
             <span className="material-symbols-outlined text-[26px]">
               {activeTab === 'staff' ? 'badge' : 'shield_person'}
             </span>
@@ -75,7 +75,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             onClick={() => handleTabChange('staff')}
             className={`flex-1 py-2 rounded-xl transition flex items-center justify-center gap-1.5 ${
               activeTab === 'staff'
-                ? 'bg-white text-indigo-700 shadow-sm'
+                ? 'bg-primary text-white shadow-md'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -88,7 +88,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             onClick={() => handleTabChange('admin')}
             className={`flex-1 py-2 rounded-xl transition flex items-center justify-center gap-1.5 ${
               activeTab === 'admin'
-                ? 'bg-white text-emerald-700 shadow-sm'
+                ? 'bg-[#232f3e] text-amber-400 shadow-md'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -133,9 +133,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
           <button
             type="submit"
-            className={`w-full py-3 ${
-              activeTab === 'staff' ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-            } font-bold text-xs rounded-full shadow-md uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer`}
+            className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] text-text-dark border border-[#fcd200] font-bold text-xs rounded-full shadow-md uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <span className="material-symbols-outlined text-[18px]">login</span>
             Log In to {activeTab === 'staff' ? 'Staff Portal' : 'Admin Panel'}

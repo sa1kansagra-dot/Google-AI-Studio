@@ -188,7 +188,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     </span>
                   )}
                   {upgradeCost > 0 && (
-                    <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded ml-2 font-mono">
+                    <span className="text-[11px] font-bold text-primary bg-amber-100 border border-amber-300 px-2 py-0.5 rounded ml-2 font-mono">
                       (Includes ₹{Math.round(upgradeCost * 85).toLocaleString('en-IN')} Upgrades)
                     </span>
                   )}
@@ -218,13 +218,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
                 {/* Laptop RAM & SSD Upgrade Booking Options */}
                 {isLaptop && (
-                  <div className="mt-4 p-3 bg-gradient-to-br from-indigo-50/80 to-purple-50/80 border border-indigo-200 rounded-xl space-y-3">
+                  <div className="mt-4 p-3 bg-amber-50/80 border border-amber-200 rounded-xl space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-heading font-extrabold text-xs text-indigo-900 flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[18px] text-indigo-600">tune</span>
+                      <span className="font-heading font-extrabold text-xs text-text-dark flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[18px] text-primary">tune</span>
                         Laptop RAM & SSD Upgrade Booking Options
                       </span>
-                      <span className="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-full font-mono">
+                      <span className="text-[10px] bg-primary text-white font-bold px-2 py-0.5 rounded-full font-mono">
                         Lab Custom
                       </span>
                     </div>
@@ -232,7 +232,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     {/* RAM Selection */}
                     <div className="space-y-1">
                       <label className="text-[11px] font-bold text-gray-700 flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[14px] text-indigo-600">memory</span>
+                        <span className="material-symbols-outlined text-[14px] text-primary">memory</span>
                         System Memory (RAM) Upgrade:
                       </label>
                       <div className="grid grid-cols-1 gap-1.5">
@@ -243,8 +243,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                             onClick={() => setSelectedRam(r)}
                             className={`px-2.5 py-1.5 rounded-lg border text-left text-xs flex items-center justify-between transition-all ${
                               selectedRam.id === r.id
-                                ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-sm'
-                                : 'bg-white text-gray-800 border-gray-200 hover:border-indigo-300'
+                                ? 'bg-primary text-white border-primary font-bold shadow-sm'
+                                : 'bg-white text-gray-800 border-gray-200 hover:border-orange-300'
                             }`}
                           >
                             <span>{r.label}</span>
@@ -259,7 +259,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     {/* SSD Selection */}
                     <div className="space-y-1">
                       <label className="text-[11px] font-bold text-gray-700 flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[14px] text-indigo-600">hard_drive</span>
+                        <span className="material-symbols-outlined text-[14px] text-primary">hard_drive</span>
                         NVMe SSD Storage Upgrade:
                       </label>
                       <div className="grid grid-cols-1 gap-1.5">
@@ -270,8 +270,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                             onClick={() => setSelectedSsd(s)}
                             className={`px-2.5 py-1.5 rounded-lg border text-left text-xs flex items-center justify-between transition-all ${
                               selectedSsd.id === s.id
-                                ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-sm'
-                                : 'bg-white text-gray-800 border-gray-200 hover:border-indigo-300'
+                                ? 'bg-primary text-white border-primary font-bold shadow-sm'
+                                : 'bg-white text-gray-800 border-gray-200 hover:border-orange-300'
                             }`}
                           >
                             <span>{s.label}</span>

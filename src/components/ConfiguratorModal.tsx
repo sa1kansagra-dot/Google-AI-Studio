@@ -152,7 +152,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
               onClick={() => setConfigType('laptop')}
               className={`flex-1 py-2.5 rounded-xl transition flex items-center justify-center gap-2 ${
                 configType === 'laptop'
-                  ? 'bg-indigo-600 text-white shadow-md'
+                  ? 'bg-primary text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-slate-200'
               }`}
             >
@@ -164,7 +164,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
               onClick={() => setConfigType('desktop')}
               className={`flex-1 py-2.5 rounded-xl transition flex items-center justify-center gap-2 ${
                 configType === 'desktop'
-                  ? 'bg-orange-500 text-white shadow-md'
+                  ? 'bg-[#232f3e] text-amber-400 shadow-md'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-slate-200'
               }`}
             >
@@ -177,9 +177,9 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
           {configType === 'laptop' && (
             <div className="space-y-5">
               {/* Laptop Telemetry Banner */}
-              <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-indigo-500/40">
+              <div className="bg-gradient-to-r from-slate-900 via-[#131921] to-slate-900 text-white rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-orange-500/40">
                 <div>
-                  <div className="text-[11px] text-indigo-300 font-mono font-bold uppercase tracking-wider">
+                  <div className="text-[11px] text-amber-400 font-mono font-bold uppercase tracking-wider">
                     Selected Base Laptop
                   </div>
                   <div className="text-base font-bold font-heading text-white line-clamp-1">
@@ -190,7 +190,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 bg-indigo-900/80 border border-indigo-400/50 px-3 py-2 rounded-lg text-amber-300 text-xs font-bold font-mono shrink-0">
+                <div className="flex items-center gap-2 bg-[#232f3e] border border-orange-400/50 px-3 py-2 rounded-lg text-amber-300 text-xs font-bold font-mono shrink-0">
                   <span className="material-symbols-outlined text-[18px] text-emerald-400">verified</span>
                   <span>Austin Lab Factory Upgrade Telemetry Passed</span>
                 </div>
@@ -201,7 +201,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                 {/* Step 1: Select Laptop Model */}
                 <div className="border border-slate-200 rounded-xl p-3.5 space-y-2.5 bg-white shadow-sm">
                   <span className="font-bold text-gray-800 flex items-center gap-1.5 text-xs">
-                    <span className="material-symbols-outlined text-[18px] text-indigo-600">laptop</span>
+                    <span className="material-symbols-outlined text-[18px] text-primary">laptop</span>
                     1. Select Laptop Model
                   </span>
                   <div className="space-y-1.5">
@@ -211,14 +211,14 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                         onClick={() => setSelectedLaptop(l)}
                         className={`w-full p-2.5 rounded-lg text-left border transition-all ${
                           selectedLaptop.id === l.id
-                            ? 'border-indigo-600 bg-indigo-50/70 font-bold text-indigo-950 shadow-sm'
-                            : 'border-gray-200 hover:border-indigo-300 text-gray-700'
+                            ? 'border-primary bg-orange-50/80 font-bold text-text-dark shadow-sm'
+                            : 'border-gray-200 hover:border-orange-300 text-gray-700'
                         }`}
                       >
                         <div className="font-semibold line-clamp-1 text-[11px]">{l.title}</div>
                         <div className="flex justify-between items-center mt-1">
                           <span className="text-[10px] text-gray-500 font-mono">{l.specs[1]?.value.split(' ')[0]}</span>
-                          <span className="font-mono text-xs font-bold text-indigo-700">₹{Math.round(l.price * 85).toLocaleString('en-IN')}</span>
+                          <span className="font-mono text-xs font-bold text-primary">₹{Math.round(l.price * 85).toLocaleString('en-IN')}</span>
                         </div>
                       </button>
                     ))}
@@ -228,7 +228,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                 {/* Step 2: System Memory (RAM) Upgrade */}
                 <div className="border border-slate-200 rounded-xl p-3.5 space-y-2.5 bg-white shadow-sm">
                   <span className="font-bold text-gray-800 flex items-center gap-1.5 text-xs">
-                    <span className="material-symbols-outlined text-[18px] text-indigo-600">memory</span>
+                    <span className="material-symbols-outlined text-[18px] text-primary">memory</span>
                     2. RAM Upgrade Option
                   </span>
                   <div className="space-y-2">
@@ -238,12 +238,12 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                         onClick={() => setSelectedLaptopRam(r)}
                         className={`w-full p-3 rounded-lg text-left border transition-all ${
                           selectedLaptopRam.id === r.id
-                            ? 'border-indigo-600 bg-indigo-600 text-white font-bold shadow-md'
-                            : 'border-gray-200 hover:border-indigo-300 text-gray-800 bg-white'
+                            ? 'border-primary bg-primary text-white font-bold shadow-md'
+                            : 'border-gray-200 hover:border-orange-300 text-gray-800 bg-white'
                         }`}
                       >
                         <div className="font-bold text-xs">{r.name}</div>
-                        <div className={`text-[11px] font-mono mt-1 ${selectedLaptopRam.id === r.id ? 'text-amber-300' : 'text-indigo-600 font-semibold'}`}>
+                        <div className={`text-[11px] font-mono mt-1 ${selectedLaptopRam.id === r.id ? 'text-amber-300' : 'text-primary font-semibold'}`}>
                           {r.label}
                         </div>
                       </button>
@@ -254,7 +254,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                 {/* Step 3: NVMe SSD Storage Upgrade */}
                 <div className="border border-slate-200 rounded-xl p-3.5 space-y-2.5 bg-white shadow-sm">
                   <span className="font-bold text-gray-800 flex items-center gap-1.5 text-xs">
-                    <span className="material-symbols-outlined text-[18px] text-indigo-600">hard_drive</span>
+                    <span className="material-symbols-outlined text-[18px] text-primary">hard_drive</span>
                     3. SSD Storage Upgrade
                   </span>
                   <div className="space-y-2">
@@ -264,12 +264,12 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                         onClick={() => setSelectedLaptopSsd(s)}
                         className={`w-full p-3 rounded-lg text-left border transition-all ${
                           selectedLaptopSsd.id === s.id
-                            ? 'border-indigo-600 bg-indigo-600 text-white font-bold shadow-md'
-                            : 'border-gray-200 hover:border-indigo-300 text-gray-800 bg-white'
+                            ? 'border-primary bg-primary text-white font-bold shadow-md'
+                            : 'border-gray-200 hover:border-orange-300 text-gray-800 bg-white'
                         }`}
                       >
                         <div className="font-bold text-xs">{s.name}</div>
-                        <div className={`text-[11px] font-mono mt-1 ${selectedLaptopSsd.id === s.id ? 'text-amber-300' : 'text-indigo-600 font-semibold'}`}>
+                        <div className={`text-[11px] font-mono mt-1 ${selectedLaptopSsd.id === s.id ? 'text-amber-300' : 'text-primary font-semibold'}`}>
                           {s.label}
                         </div>
                       </button>
@@ -290,7 +290,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                       {Math.round(laptopTotalPrice * 85).toLocaleString('en-IN')}
                     </span>
                     {(selectedLaptopRam.price > 0 || selectedLaptopSsd.price > 0) && (
-                      <span className="text-xs text-indigo-700 font-bold ml-2 font-mono">
+                      <span className="text-xs text-primary font-bold ml-2 font-mono">
                         (Includes ₹{Math.round((selectedLaptopRam.price + selectedLaptopSsd.price) * 85).toLocaleString('en-IN')} Upgrade Modules)
                       </span>
                     )}
@@ -300,7 +300,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                 <button
                   type="button"
                   onClick={handleAddUpgradedLaptop}
-                  className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-full shadow-lg active:scale-95 transition-all uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-[#ffd814] hover:bg-[#f7ca00] text-text-dark border border-[#fcd200] font-bold text-xs rounded-full shadow-md active:scale-95 transition-all uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
                   Book Upgraded Laptop & Add to Cart
