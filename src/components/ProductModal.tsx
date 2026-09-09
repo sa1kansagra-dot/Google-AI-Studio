@@ -7,6 +7,18 @@ interface ProductModalProps {
   onAddToCart: (product: Product, appliedCoupon?: number) => void;
 }
 
+const RAM_UPGRADES = [
+  { id: 'ram-base', label: 'Standard Factory RAM', addPrice: 0, tag: 'Included' },
+  { id: 'ram-32gb', label: '32GB DDR5 5600MHz Dual-Channel', addPrice: 70, tag: '+ ₹5,950' },
+  { id: 'ram-64gb', label: '64GB DDR5 5600MHz Extreme', addPrice: 170, tag: '+ ₹14,450' },
+];
+
+const SSD_UPGRADES = [
+  { id: 'ssd-base', label: 'Standard Factory NVMe SSD', addPrice: 0, tag: 'Included' },
+  { id: 'ssd-2tb', label: '2TB PCIe 4.0 NVMe (7,450 MB/s)', addPrice: 90, tag: '+ ₹7,650' },
+  { id: 'ssd-4tb', label: '4TB PCIe 4.0 Ultra NVMe RAID', addPrice: 220, tag: '+ ₹18,700' },
+];
+
 export const ProductModal: React.FC<ProductModalProps> = ({
   product,
   onClose,
@@ -16,11 +28,35 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
+  const [selectedRam, setSelectedRam] = useState(RAM_UPGRADES[0]);
+  const [selectedSsd, setSelectedSsd] = useState(SSD_UPGRADES[0]);
+
   if (!product) return null;
 
+  const isLaptop = product.category === 'laptop';
+  const upgradeCost = isLaptop ? (selectedRam.addPrice + selectedSsd.addPrice) : 0;
+  const effectiveUnitPrice = product.price + upgradeCost;
+
   const handleAdd = () => {
+    const finalProduct: Product = (isLaptop && (selectedRam.addPrice > 0 || selectedSsd.addPrice > 0)) ? {
+      ...product,
+      id: `${product.id}-upgraded-${Date.now()}`,
+      title: `${product.title} (Upgraded: ${selectedRam.addPrice > 0 ? selectedRam.label : 'Base RAM'} + ${selectedSsd.addPrice > 0 ? selectedSsd.label : 'Base SSD'})`,
+      price: effectiveUnitPrice,
+      specChips: [
+        ...(product.specChips || []),
+        ...(selectedRam.addPrice > 0 ? [selectedRam.label.split(' ')[0] + ' ' + selectedRam.label.split(' ')[1]] : []),
+        ...(selectedSsd.addPrice > 0 ? [selectedSsd.label.split(' ')[0] + ' SSD'] : []),
+      ],
+      specs: [
+        ...product.specs,
+        ...(selectedRam.addPrice > 0 ? [{ label: 'RAM Upgrade', value: selectedRam.label }] : []),
+        ...(selectedSsd.addPrice > 0 ? [{ label: 'SSD Upgrade', value: selectedSsd.label }] : []),
+      ],
+    } : product;
+
     for (let i = 0; i < quantity; i++) {
-      onAddToCart(product, couponChecked && product.coupon ? product.coupon : undefined);
+      onAddToCart(finalProduct, couponChecked && product.coupon ? product.coupon : undefined);
     }
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -41,7 +77,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-orange-400">memory</span>
             <h3 className="font-heading font-bold text-sm truncate max-w-md">
-              PCWARE Verified Hardware Details
+              PCWARE Verified Hardware Details {isLaptop && '& Booking Configurator'}
             </h3>
           </div>
           <button
@@ -144,11 +180,16 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <div className="flex items-baseline gap-1">
                   <span className="text-xs align-super font-bold">₹</span>
                   <span className="text-3xl font-bold font-heading text-text-dark">
-                    {Math.round(product.price * 85).toLocaleString('en-IN')}
+                    {Math.round(effectiveUnitPrice * 85).toLocaleString('en-IN')}
                   </span>
                   {product.originalPrice && (
                     <span className="text-xs text-text-muted line-through ml-3">
-                      List: ₹{Math.round(product.originalPrice * 85).toLocaleString('en-IN')}
+                      List: ₹{Math.round((product.originalPrice + upgradeCost) * 85).toLocaleString('en-IN')}
+                    </span>
+                  )}
+                  {upgradeCost > 0 && (
+                    <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded ml-2 font-mono">
+                      (Includes ₹{Math.round(upgradeCost * 85).toLocaleString('en-IN')} Upgrades)
                     </span>
                   )}
                 </div>
@@ -174,6 +215,75 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   <span className="text-tertiary font-bold">{product.shipping}</span>
                   <span>• {product.shippingSpeed}</span>
                 </div>
+
+                {/* Laptop RAM & SSD Upgrade Booking Options */}
+                {isLaptop && (
+                  <div className="mt-4 p-3 bg-gradient-to-br from-indigo-50/80 to-purple-50/80 border border-indigo-200 rounded-xl space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-heading font-extrabold text-xs text-indigo-900 flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[18px] text-indigo-600">tune</span>
+                        Laptop RAM & SSD Upgrade Booking Options
+                      </span>
+                      <span className="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-full font-mono">
+                        Lab Custom
+                      </span>
+                    </div>
+
+                    {/* RAM Selection */}
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-gray-700 flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px] text-indigo-600">memory</span>
+                        System Memory (RAM) Upgrade:
+                      </label>
+                      <div className="grid grid-cols-1 gap-1.5">
+                        {RAM_UPGRADES.map((r) => (
+                          <button
+                            key={r.id}
+                            type="button"
+                            onClick={() => setSelectedRam(r)}
+                            className={`px-2.5 py-1.5 rounded-lg border text-left text-xs flex items-center justify-between transition-all ${
+                              selectedRam.id === r.id
+                                ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-sm'
+                                : 'bg-white text-gray-800 border-gray-200 hover:border-indigo-300'
+                            }`}
+                          >
+                            <span>{r.label}</span>
+                            <span className={`font-mono text-[11px] ${selectedRam.id === r.id ? 'text-amber-300 font-bold' : 'text-gray-500'}`}>
+                              {r.tag}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* SSD Selection */}
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-gray-700 flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px] text-indigo-600">hard_drive</span>
+                        NVMe SSD Storage Upgrade:
+                      </label>
+                      <div className="grid grid-cols-1 gap-1.5">
+                        {SSD_UPGRADES.map((s) => (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => setSelectedSsd(s)}
+                            className={`px-2.5 py-1.5 rounded-lg border text-left text-xs flex items-center justify-between transition-all ${
+                              selectedSsd.id === s.id
+                                ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-sm'
+                                : 'bg-white text-gray-800 border-gray-200 hover:border-indigo-300'
+                            }`}
+                          >
+                            <span>{s.label}</span>
+                            <span className={`font-mono text-[11px] ${selectedSsd.id === s.id ? 'text-amber-300 font-bold' : 'text-gray-500'}`}>
+                              {s.tag}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Technical Specifications Table */}
                 <div className="mt-4 border border-gray-200 rounded overflow-hidden text-xs">
@@ -226,7 +336,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   ) : (
                     <>
                       <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-                      Add to Cart (₹{Math.round(((product.price - (couponChecked && product.coupon ? product.coupon : 0)) * quantity) * 85).toLocaleString('en-IN')})
+                      Add to Cart (₹{Math.round(((effectiveUnitPrice - (couponChecked && product.coupon ? product.coupon : 0)) * quantity) * 85).toLocaleString('en-IN')})
                     </>
                   )}
                 </button>

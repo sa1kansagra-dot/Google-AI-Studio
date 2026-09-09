@@ -31,6 +31,8 @@ export interface CartItem {
   quantity: number;
   appliedCoupon?: number;
   selectedWarranty?: boolean;
+  selectedRamUpgrade?: { name: string; price: number };
+  selectedSsdUpgrade?: { name: string; price: number };
 }
 
 export interface DeliveryAddress {
