@@ -37,7 +37,7 @@ export const OrdersModal: React.FC<OrdersModalProps> = ({ isOpen, onClose }) => 
                 </div>
                 <div>
                   <span className="text-gray-500 block text-[10px] uppercase font-mono">Total</span>
-                  <span className="font-semibold">$3,749.98</span>
+                  <span className="font-semibold">₹3,18,748</span>
                 </div>
                 <div>
                   <span className="text-gray-500 block text-[10px] uppercase font-mono">Ship To</span>

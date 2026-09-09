@@ -159,7 +159,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           </div>
                           {item.appliedCoupon && (
                             <div className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded inline-block mt-0.5">
-                              ${item.appliedCoupon} Coupon Applied
+                              ₹{Math.round(item.appliedCoupon * 85).toLocaleString('en-IN')} Coupon Applied
                             </div>
                           )}
                         </div>
@@ -185,7 +185,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                           <div className="text-right">
                             <span className="text-xs font-bold font-heading text-text-dark">
-                              ${((item.product.price - (item.appliedCoupon || 0)) * item.quantity).toFixed(2)}
+                              ₹{Math.round(((item.product.price - (item.appliedCoupon || 0)) * item.quantity) * 85).toLocaleString('en-IN')}
                             </span>
                             <button
                               onClick={() => onRemoveItem(item.product.id)}
@@ -209,7 +209,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span className="font-bold text-gray-900">${subtotal.toFixed(2)}</span>
+                  <span className="font-bold text-gray-900">₹{Math.round(subtotal * 85).toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between text-emerald-700">
                   <span>Shipping (FastPass)</span>
@@ -218,12 +218,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {totalSavings > 0 && (
                   <div className="flex justify-between text-badge-deal font-semibold">
                     <span>Total Savings</span>
-                    <span>-${totalSavings.toFixed(2)}</span>
+                    <span>-₹{Math.round(totalSavings * 85).toLocaleString('en-IN')}</span>
                   </div>
                 )}
                 <div className="border-t border-gray-200 pt-2 flex justify-between font-heading font-bold text-sm text-text-dark">
                   <span>Estimated Total</span>
-                  <span className="text-base text-primary">${subtotal.toFixed(2)}</span>
+                  <span className="text-base text-primary">₹{Math.round(subtotal * 85).toLocaleString('en-IN')}</span>
                 </div>
               </div>
 

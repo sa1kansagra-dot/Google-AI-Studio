@@ -16,10 +16,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const [isAdded, setIsAdded] = useState(false);
 
   const formatPrice = (price: number) => {
-    const parts = price.toFixed(2).split('.');
+    const inr = Math.round(price * 85);
     return {
-      whole: Number(parts[0]).toLocaleString(),
-      cents: parts[1],
+      whole: inr.toLocaleString('en-IN'),
+      cents: '00',
     };
   };
 
@@ -145,12 +145,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Amazon-style Price formatting */}
         <div className="mt-2 flex items-baseline gap-0.5">
-          <span className="text-xs align-super font-bold text-text-dark">$</span>
+          <span className="text-xs align-super font-bold text-text-dark">₹</span>
           <span className="text-2xl font-bold font-heading text-text-dark">{whole}</span>
-          <span className="text-xs align-super font-bold text-text-dark">{cents}</span>
           {product.originalPrice && (
             <span className="text-xs text-text-muted line-through ml-2">
-              ${product.originalPrice.toFixed(2)}
+              ₹{Math.round(product.originalPrice * 85).toLocaleString('en-IN')}
             </span>
           )}
         </div>
@@ -169,7 +168,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               className="rounded text-emerald-600 focus:ring-0 cursor-pointer h-3.5 w-3.5 border-gray-300 accent-emerald-600"
             />
             <label htmlFor={`coupon-${product.id}`} className="cursor-pointer">
-              Apply <strong>${product.coupon} coupon</strong> at checkout
+              Apply <strong>₹{Math.round(product.coupon * 85).toLocaleString('en-IN')} coupon</strong> at checkout
             </label>
           </div>
         )}

@@ -79,7 +79,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
                 {WORKSPACE_BUNDLE.items[0].name}
               </span>
               <span className="text-xs font-bold text-primary font-heading">
-                ${WORKSPACE_BUNDLE.items[0].price.toFixed(2)}
+                ₹{Math.round(WORKSPACE_BUNDLE.items[0].price * 85).toLocaleString('en-IN')}
               </span>
             </div>
 
@@ -103,7 +103,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
                 {WORKSPACE_BUNDLE.items[1].name}
               </span>
               <span className="text-xs font-bold text-primary font-heading">
-                ${WORKSPACE_BUNDLE.items[1].price.toFixed(2)}
+                ₹{Math.round(WORKSPACE_BUNDLE.items[1].price * 85).toLocaleString('en-IN')}
               </span>
             </div>
 
@@ -127,7 +127,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
                 {WORKSPACE_BUNDLE.items[2].name}
               </span>
               <span className="text-xs font-bold text-primary font-heading">
-                ${WORKSPACE_BUNDLE.items[2].price.toFixed(2)}
+                ₹{Math.round(WORKSPACE_BUNDLE.items[2].price * 85).toLocaleString('en-IN')}
               </span>
             </div>
           </div>
@@ -136,10 +136,9 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
           <div className="flex flex-col items-center lg:items-end justify-center shrink-0 border-t lg:border-t-0 lg:border-l border-slate-300 pt-3 lg:pt-0 lg:pl-6 w-full lg:w-auto">
             <div className="text-xs text-text-muted">Total Price for all 3 items:</div>
             <div className="flex items-baseline gap-1 my-1">
-              <span className="text-xs align-super font-bold">$</span>
-              <span className="text-3xl font-bold font-heading text-text-dark">2,549</span>
-              <span className="text-xs align-super font-bold">97</span>
-              <span className="text-xs text-badge-deal font-bold ml-2">(Bundle Savings: $80)</span>
+              <span className="text-xs align-super font-bold">₹</span>
+              <span className="text-3xl font-bold font-heading text-text-dark">2,16,747</span>
+              <span className="text-xs text-badge-deal font-bold ml-2">(Bundle Savings: ₹6,800)</span>
             </div>
 
             <button

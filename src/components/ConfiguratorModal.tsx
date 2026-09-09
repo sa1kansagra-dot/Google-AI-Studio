@@ -140,7 +140,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                   >
                     <div className="flex justify-between">
                       <span>{c.name}</span>
-                      <span className="font-mono text-gray-900">${c.price.toFixed(2)}</span>
+                      <span className="font-mono text-gray-900">₹{Math.round(c.price * 85).toLocaleString('en-IN')}</span>
                     </div>
                     <div className="text-[10px] text-gray-500 font-mono">
                       Socket {c.socket} • {c.watts}W TDP
@@ -169,7 +169,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                   >
                     <div className="flex justify-between">
                       <span>{g.name}</span>
-                      <span className="font-mono text-gray-900">${g.price.toFixed(2)}</span>
+                      <span className="font-mono text-gray-900">₹{Math.round(g.price * 85).toLocaleString('en-IN')}</span>
                     </div>
                     <div className="text-[10px] text-gray-500 font-mono">{g.watts}W TGP</div>
                   </button>
@@ -196,7 +196,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                   >
                     <div className="flex justify-between">
                       <span>{r.name}</span>
-                      <span className="font-mono text-gray-900">${r.price.toFixed(2)}</span>
+                      <span className="font-mono text-gray-900">₹{Math.round(r.price * 85).toLocaleString('en-IN')}</span>
                     </div>
                   </button>
                 ))}
@@ -222,7 +222,7 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                   >
                     <div className="flex justify-between">
                       <span>{s.name}</span>
-                      <span className="font-mono text-gray-900">${s.price.toFixed(2)}</span>
+                      <span className="font-mono text-gray-900">₹{Math.round(s.price * 85).toLocaleString('en-IN')}</span>
                     </div>
                   </button>
                 ))}
@@ -237,12 +237,9 @@ export const ConfiguratorModal: React.FC<ConfiguratorModalProps> = ({
                 Includes Chassis, 360mm AIO Cooler, {recommendedPsu}W Gold PSU, Assembly & 72-hr Stress Testing:
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-xs font-bold">$</span>
+                <span className="text-xs font-bold">₹</span>
                 <span className="text-3xl font-bold font-heading text-text-dark">
-                  {Math.floor(totalPrice).toLocaleString()}
-                </span>
-                <span className="text-xs font-bold">
-                  {(totalPrice % 1).toFixed(2).substring(2)}
+                  {Math.round(totalPrice * 85).toLocaleString('en-IN')}
                 </span>
                 <span className="text-xs text-badge-deal font-bold ml-2">
                   (Includes 3-Year Unified Warranty)

@@ -142,16 +142,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
                 {/* Price Display */}
                 <div className="flex items-baseline gap-1">
-                  <span className="text-xs align-super font-bold">$</span>
+                  <span className="text-xs align-super font-bold">₹</span>
                   <span className="text-3xl font-bold font-heading text-text-dark">
-                    {Math.floor(product.price).toLocaleString()}
-                  </span>
-                  <span className="text-xs align-super font-bold">
-                    {(product.price % 1).toFixed(2).substring(2)}
+                    {Math.round(product.price * 85).toLocaleString('en-IN')}
                   </span>
                   {product.originalPrice && (
                     <span className="text-xs text-text-muted line-through ml-3">
-                      List: ${product.originalPrice.toFixed(2)}
+                      List: ₹{Math.round(product.originalPrice * 85).toLocaleString('en-IN')}
                     </span>
                   )}
                 </div>
@@ -167,7 +164,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                       className="rounded text-emerald-600 focus:ring-0 cursor-pointer h-4 w-4"
                     />
                     <label htmlFor="modal-coupon-checkbox" className="cursor-pointer">
-                      Save extra <strong>${product.coupon}.00</strong> with instant checkout coupon
+                      Save extra <strong>₹{Math.round(product.coupon * 85).toLocaleString('en-IN')}</strong> with instant checkout coupon
                     </label>
                   </div>
                 )}
@@ -229,7 +226,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   ) : (
                     <>
                       <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-                      Add to Cart (${((product.price - (couponChecked && product.coupon ? product.coupon : 0)) * quantity).toFixed(2)})
+                      Add to Cart (₹{Math.round(((product.price - (couponChecked && product.coupon ? product.coupon : 0)) * quantity) * 85).toLocaleString('en-IN')})
                     </>
                   )}
                 </button>

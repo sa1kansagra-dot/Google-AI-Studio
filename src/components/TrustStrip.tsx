@@ -17,7 +17,7 @@ export const TrustStrip: React.FC<TrustStripProps> = ({ onOpenTechDesk }) => {
             <div>
               <h3 className="font-bold text-sm text-text-dark">Fast & Free Delivery</h3>
               <p className="text-xs text-text-muted">
-                On all orders $35+ and same-day dispatch on stock CPUs & laptops.
+                On all orders ₹2,999+ and same-day dispatch on stock CPUs & laptops.
               </p>
             </div>
           </div>

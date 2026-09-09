@@ -118,7 +118,7 @@ export default function App() {
 
   const handleAddBundleToCart = (items: Product[]) => {
     items.forEach((item) => handleAddToCart(item));
-    showToast('All 3 Workspace Bundle items added with $80 bundle savings!');
+    showToast('All 3 Workspace Bundle items added with ₹6,800 bundle savings!');
   };
 
   const handleUpdateQuantity = (productId: string, delta: number) => {

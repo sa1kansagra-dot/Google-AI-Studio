@@ -249,14 +249,13 @@ export const QuadCards: React.FC<QuadCardsProps> = ({
                 <span className="bg-badge-deal text-white text-xs font-bold px-1.5 py-0.5 rounded">
                   Limited time deal
                 </span>
-                <span className="text-xs text-badge-deal font-bold font-mono">$600 OFF</span>
+                <span className="text-xs text-badge-deal font-bold font-mono">₹51,000 OFF</span>
               </div>
 
               <div className="flex items-baseline gap-1.5">
-                <span className="text-xs align-super font-bold">$</span>
-                <span className="text-2xl font-bold text-text-dark font-heading">2,299</span>
-                <span className="text-xs align-super font-bold">99</span>
-                <span className="text-xs text-text-muted line-through ml-2">List: $2,899.00</span>
+                <span className="text-xs align-super font-bold">₹</span>
+                <span className="text-2xl font-bold text-text-dark font-heading">1,95,499</span>
+                <span className="text-xs text-text-muted line-through ml-2">List: ₹2,46,415</span>
               </div>
 
               <p className="text-xs text-text-dark font-medium line-clamp-2 mt-1 group-hover:text-primary transition-colors">
