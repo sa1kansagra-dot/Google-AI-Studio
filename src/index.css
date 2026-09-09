@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ea580c;
+  --color-primary-hover: #c2410c;
+  --color-amazon-navy: #131921;
+  --color-amazon-dark: #232f3e;
+  --color-amazon-yellow: #febd69;
+  --color-amazon-orange: #f08804;
+  --color-badge-deal: #cc0c39;
+  --color-badge-prime: #007185;
+  --color-surface: #ffffff;
+  --color-background: #eaeded;
+  --color-border-subtle: #d5d9d9;
+  --color-text-dark: #0f1111;
+  --color-text-muted: #565959;
+  --color-star-gold: #de7921;
+  --color-tertiary: #007185;
+
+  --font-body: "Hanken Grotesk", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #eaeded;
+    color: #0f1111;
+    font-family: "Hanken Grotesk", sans-serif;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+

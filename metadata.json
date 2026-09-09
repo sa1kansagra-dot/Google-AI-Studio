@@ -1,0 +1,6 @@
+{
+  "name": "PCWARE - High Performance Hardware Store",
+  "description": "Precision engineered e-commerce store for high-performance laptops, Intel & AMD desktop CPUs, workstation rigs, and workspace bundles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
