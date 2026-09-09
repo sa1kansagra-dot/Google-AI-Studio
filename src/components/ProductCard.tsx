@@ -54,17 +54,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       className="border border-slate-200 hover:border-gray-400 p-3 sm:p-3.5 rounded flex flex-col justify-between bg-white hover:shadow-md transition-all group cursor-pointer"
     >
       <div>
-        {/* Product Image Stage */}
-        <div
-          className={`relative w-full ${
-            product.category === 'cpu' ? 'h-44 bg-slate-950 p-2' : 'h-40 bg-slate-900'
-          } rounded overflow-hidden flex items-center justify-center mb-2.5`}
-        >
+        {/* Product Image Stage on Pure White Background */}
+        <div className="relative w-full h-44 bg-white p-2 border border-slate-100 rounded-xl overflow-hidden flex items-center justify-center mb-2.5">
           <img
             alt={product.title}
-            className={`w-full h-full ${
-              product.category === 'cpu' ? 'object-contain' : 'object-cover'
-            } group-hover:scale-105 transition-transform duration-300`}
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
             src={product.image}
           />
 

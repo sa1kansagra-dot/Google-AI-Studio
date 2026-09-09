@@ -68,7 +68,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
               onClick={() => onSelectProduct(bundleProducts[0])}
               className="flex flex-col items-center text-center max-w-[170px] cursor-pointer group"
             >
-              <div className="w-32 h-24 bg-slate-900 rounded p-1 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
+              <div className="w-32 h-24 bg-white rounded-xl p-2 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
                 <img
                   alt="Creator Laptop"
                   className="max-h-full object-contain group-hover:scale-105 transition-transform"
@@ -92,7 +92,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
               onClick={() => onSelectProduct(bundleProducts[1])}
               className="flex flex-col items-center text-center max-w-[170px] cursor-pointer group"
             >
-              <div className="w-32 h-24 bg-slate-950 rounded p-1 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
+              <div className="w-32 h-24 bg-white rounded-xl p-2 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
                 <img
                   alt="AMD Ryzen 7 7800X3D"
                   className="max-h-full object-contain group-hover:scale-105 transition-transform"
@@ -116,7 +116,7 @@ export const BundleSection: React.FC<BundleSectionProps> = ({
               onClick={() => onSelectProduct(bundleProducts[2])}
               className="flex flex-col items-center text-center max-w-[170px] cursor-pointer group"
             >
-              <div className="w-32 h-24 bg-slate-950 rounded p-1 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
+              <div className="w-32 h-24 bg-white rounded-xl p-2 flex items-center justify-center mb-2 shadow-sm border border-slate-200 group-hover:border-primary transition-colors">
                 <img
                   alt="Samsung 990 Pro SSD"
                   className="max-h-full object-contain group-hover:scale-105 transition-transform"

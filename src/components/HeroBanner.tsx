@@ -44,26 +44,26 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   };
 
   return (
-    <div className="relative w-full bg-gradient-to-r from-slate-900 via-[#1a2332] to-[#0f172a] text-white min-h-[340px] md:min-h-[440px] overflow-hidden">
-      {/* Ambient Lighting */}
-      <div className="absolute -top-24 -left-20 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-10 right-20 w-96 h-96 bg-sky-600/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative w-full bg-white text-slate-900 border-b border-slate-200 min-h-[340px] md:min-h-[420px] overflow-hidden">
+      {/* Soft Ambient Background Elements */}
+      <div className="absolute -top-24 -left-20 w-96 h-96 bg-orange-100/60 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 right-20 w-96 h-96 bg-emerald-100/60 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1480px] mx-auto px-4 pt-6 md:pt-10 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+      <div className="max-w-[1480px] mx-auto px-4 pt-6 md:pt-10 pb-12 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         <div className="max-w-xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/20 border border-primary/40 text-primary font-mono text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-primary font-mono text-xs font-bold uppercase tracking-wider">
             <span className="material-symbols-outlined text-[15px]">bolt</span>
             Seasonal Architecture Event
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight leading-tight text-slate-900">
             Big Laptop & CPU <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">
+            <span className="text-primary">
               Savings Event
             </span>
           </h1>
 
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed font-body">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed font-body">
             Save up to 35% on flagship 14th Gen Intel Core Ultra, AMD Ryzen 9 7000/8000 series rigs, and high-TGP GeForce RTX 40-Series laptops. Direct bench-certified silicon with 3-year warranty.
           </p>
 
@@ -71,7 +71,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <button
               id="hero-shop-laptops-btn"
               onClick={onShopLaptops}
-              className="bg-primary hover:bg-primary-hover px-5 py-2.5 rounded text-white font-bold text-xs uppercase tracking-wider shadow flex items-center gap-1.5 transition-all cursor-pointer"
+              className="bg-primary hover:bg-primary-hover px-5 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-wider shadow flex items-center gap-1.5 transition-all cursor-pointer"
             >
               Shop Laptop Event <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
             </button>
@@ -79,36 +79,35 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <button
               id="hero-shop-cpus-btn"
               onClick={onShopCPUs}
-              className="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-5 py-2.5 rounded text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              className="bg-slate-100 hover:bg-slate-200 border border-slate-300 px-5 py-2.5 rounded-full text-slate-800 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
             >
               Shop Desktop CPUs
             </button>
           </div>
         </div>
 
-        {/* Hero Graphic Showcase (Flagship Titan Rig) */}
+        {/* Hero Graphic Showcase (Flagship Titan Rig on Pure White Background) */}
         <div className="hidden md:flex items-center justify-center relative max-w-md lg:max-w-lg">
           <div
             id="hero-titan-showcase"
             onClick={() => onSelectProduct(titanProduct)}
-            className="relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/80 bg-slate-950/60 p-2 cursor-pointer group hover:border-orange-500/80 transition-all"
+            className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white p-3 cursor-pointer group hover:border-orange-500 transition-all"
             title="Click to view Apex Titan RTX 4090 specs"
           >
-            <img
-              alt="PCWARE High Performance Flagship Rig"
-              className="h-64 lg:h-72 w-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-500"
-              src={ASSET_IMAGES.titanRig}
-            />
-            <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm px-3 py-2 rounded border border-slate-700 flex items-center justify-between text-xs">
-              <span className="text-orange-400 font-bold font-mono">APEX TITAN RTX 4090</span>
-              <span className="text-emerald-400 font-bold">$4,899 (Save $400)</span>
+            <div className="w-full h-64 lg:h-72 bg-white rounded-xl overflow-hidden flex items-center justify-center p-2">
+              <img
+                alt="PCWARE High Performance Flagship Rig"
+                className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500"
+                src={ASSET_IMAGES.titanRig}
+              />
+            </div>
+            <div className="mt-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 flex items-center justify-between text-xs">
+              <span className="text-slate-900 font-bold font-mono">APEX TITAN RTX 4090</span>
+              <span className="text-emerald-700 font-extrabold">₹4,16,415 (Save ₹34,000)</span>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Soft fade gradient at bottom for card overlap */}
-      <div className="h-28 w-full bg-gradient-to-b from-transparent to-[#eaeded] absolute bottom-0 left-0 pointer-events-none" />
     </div>
   );
 };

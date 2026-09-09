@@ -141,7 +141,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="divide-y divide-gray-200">
                   {cartItems.map((item) => (
                     <div key={item.product.id} className="py-3 flex gap-3">
-                      <div className="w-20 h-20 bg-slate-900 rounded p-1 shrink-0 flex items-center justify-center border border-slate-200">
+                      <div className="w-20 h-20 bg-white rounded-xl p-1 shrink-0 flex items-center justify-center border border-slate-200">
                         <img
                           alt={item.product.title}
                           className="max-h-full object-contain"

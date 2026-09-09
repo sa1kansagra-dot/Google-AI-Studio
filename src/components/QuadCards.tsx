@@ -186,10 +186,10 @@ export const QuadCards: React.FC<QuadCardsProps> = ({
                 onClick={() => onSelectCpuCategory('Server EPYC & Xeon Scalable')}
                 className="group block text-left w-full"
               >
-                <div className="bg-slate-100 rounded overflow-hidden aspect-[4/3] flex items-center justify-center p-2 mb-1 border border-slate-200">
+                <div className="bg-white rounded overflow-hidden aspect-[4/3] flex items-center justify-center p-2 mb-1 border border-slate-200">
                   <img
                     alt="Server EPYC"
-                    className="object-cover h-full w-full group-hover:scale-105 transition-transform"
+                    className="object-contain h-full w-full group-hover:scale-105 transition-transform"
                     src={ASSET_IMAGES.storageBase}
                   />
                 </div>
@@ -232,12 +232,12 @@ export const QuadCards: React.FC<QuadCardsProps> = ({
             {/* Spotlight Deal Item */}
             <div
               onClick={() => onSelectProduct(FLASH_DEAL_LAPTOP)}
-              className="bg-slate-50 p-2.5 rounded border border-slate-200 mb-3 cursor-pointer group hover:border-orange-300 transition-colors"
+              className="bg-white p-2.5 rounded border border-slate-200 mb-3 cursor-pointer group hover:border-orange-300 transition-colors"
             >
-              <div className="relative w-full h-36 bg-slate-900 rounded overflow-hidden mb-2">
+              <div className="relative w-full h-36 bg-white rounded overflow-hidden mb-2">
                 <img
                   alt="Flash Deal Laptop"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                   src={ASSET_IMAGES.laptopBase}
                 />
                 <span className="absolute top-1.5 left-1.5 bg-badge-deal text-white font-bold text-[10px] px-2 py-0.5 rounded">

@@ -57,7 +57,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left: Product Image & Badges */}
             <div>
-              <div className="relative bg-slate-950 rounded-lg p-4 flex items-center justify-center aspect-square border border-slate-300 shadow-inner">
+              <div className="relative bg-white rounded-2xl p-4 flex items-center justify-center aspect-square border border-slate-200 shadow-sm">
                 <img
                   alt={product.title}
                   className="max-h-full max-w-full object-contain"
