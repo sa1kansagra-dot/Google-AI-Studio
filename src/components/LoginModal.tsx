@@ -34,14 +34,15 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username.toLowerCase() === 'admin' && password === 'admin123') {
+    const input = username.trim().toLowerCase();
+    if ((input === 'admin' || input === 'admin@pcware.com') && password === 'admin123') {
       onLoginSuccess({ username: 'admin', role: 'admin', name: 'System Administrator' });
       onClose();
-    } else if (username.toLowerCase() === 'staff' && password === 'staff123') {
+    } else if ((input === 'staff' || input === 'staff@pcware.com') && password === 'staff123') {
       onLoginSuccess({ username: 'staff', role: 'staff', name: 'Operations Staff' });
       onClose();
     } else {
-      setError('Invalid username or password. Try default credentials shown below.');
+      setError('Invalid email/username or password. Try default credentials shown below.');
     }
   };
 
@@ -101,14 +102,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1">
-              {activeTab === 'staff' ? 'Staff ID / Username' : 'Admin Username'}
+              {activeTab === 'staff' ? 'Staff Email / Username' : 'Admin Email / Username'}
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              placeholder={activeTab === 'staff' ? 'staff' : 'admin'}
+              placeholder={activeTab === 'staff' ? 'staff@pcware.com' : 'admin@pcware.com'}
               className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:outline-none"
             />
           </div>
@@ -142,7 +143,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
         {/* Default Credential Notice */}
         <div className="mt-5 text-center bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] text-gray-600">
-          🔑 Default {activeTab === 'staff' ? 'Staff' : 'Admin'} Login: <strong className="font-mono text-slate-900">{activeTab === 'staff' ? 'staff / staff123' : 'admin / admin123'}</strong>
+          🔑 Email Login: <strong className="font-mono text-slate-900">{activeTab === 'staff' ? 'staff@pcware.com / staff123' : 'admin@pcware.com / admin123'}</strong>
         </div>
       </div>
     </div>
