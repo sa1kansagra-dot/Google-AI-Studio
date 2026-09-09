@@ -231,6 +231,17 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
+          {/* Staff Login Portal Button */}
+          <button
+            id="header-staff-login-btn"
+            onClick={onOpenSignInModal}
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold text-xs shadow transition-all cursor-pointer border border-indigo-500"
+            title="Open Staff Portal Login"
+          >
+            <span className="material-symbols-outlined text-[16px]">badge</span>
+            <span>Staff Login</span>
+          </button>
+
           {/* Returns & Orders */}
           <button
             id="header-orders-btn"
