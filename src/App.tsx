@@ -19,7 +19,9 @@ import { SignInModal } from './components/SignInModal';
 import { OrdersModal } from './components/OrdersModal';
 import { ConfiguratorModal } from './components/ConfiguratorModal';
 import { TechDeskDrawer } from './components/TechDeskDrawer';
-import { DepartmentDrawer } from './components/DepartmentDrawer';
+import { LoginModal } from './components/LoginModal';
+import { ErpDashboard } from './components/ErpDashboard';
+import { CustomPcBuilderPage } from './components/CustomPcBuilderPage';
 import {
   LAPTOP_PRODUCTS,
   CPU_PRODUCTS,
@@ -76,6 +78,11 @@ export default function App() {
   const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'laptop' | 'cpu' | 'deals'>('all');
+
+  // View Mode state: 'storefront' | 'pc-builder' | 'erp'
+  const [currentView, setCurrentView] = useState<'storefront' | 'pc-builder' | 'erp'>('storefront');
+  const [isStaffLoginOpen, setIsStaffLoginOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ username: string; role: 'admin' | 'staff'; name: string } | null>(null);
 
   // Modal / Drawer visibility states
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -187,6 +194,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#eaeded] font-body text-text-dark selection:bg-orange-500 selection:text-white" id="top">
       {/* 1. Header with Amazon-like navigation */}
+      {/* 1. Header with Amazon-like navigation */}
       <Header
         cartCount={totalCartCount}
         deliveryAddress={deliveryAddress}
@@ -197,6 +205,7 @@ export default function App() {
           if (dept === 'Laptops') setCategoryFilter('laptop');
           else if (dept === 'CPUs & Processors') setCategoryFilter('cpu');
           else setCategoryFilter('all');
+          if (currentView !== 'storefront') setCurrentView('storefront');
         }}
         onSearchChange={setSearchQuery}
         onOpenCart={() => setIsCartOpen(true)}
@@ -207,10 +216,50 @@ export default function App() {
         onOpenTechDesk={() => setIsTechDeskOpen(true)}
         onOpenDepartmentMenu={() => setIsDepartmentDrawerOpen(true)}
         onSelectCategoryFilter={(cat) => setCategoryFilter(cat)}
+        onOpenStaffLogin={() => setIsStaffLoginOpen(true)}
+        onOpenPcBuilder={() => {
+          setSelectedProduct(null);
+          setCurrentView('pc-builder');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onOpenErpPortal={() => {
+          if (!currentUser) {
+            setIsStaffLoginOpen(true);
+          } else {
+            setSelectedProduct(null);
+            setCurrentView('erp');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+        currentUser={currentUser}
+        onLogout={() => {
+          setCurrentUser(null);
+          setCurrentView('storefront');
+          showToast('Logged out of staff portal');
+        }}
       />
 
+      {/* Navigation Breadcrumb Bar for specialized views */}
+      {currentView !== 'storefront' && (
+        <div className="bg-[#232f3e] border-b border-gray-700 text-white px-4 py-2 text-xs flex items-center justify-between max-w-[1480px] mx-auto w-full">
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400">Navigation:</span>
+            <span className="font-bold text-amber-400">
+              {currentView === 'erp' ? '🏢 Enterprise ERP Portal' : '⚙️ 10-Step Interactive Custom PC Builder'}
+            </span>
+          </div>
+          <button
+            onClick={() => setCurrentView('storefront')}
+            className="px-3 py-1 bg-primary hover:bg-primary-hover text-white rounded font-bold transition-all flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[14px]">storefront</span>
+            Back to E-Commerce Storefront
+          </button>
+        </div>
+      )}
+
       {/* Filter Status Notification Bar if filtered */}
-      {hasActiveFilter && (
+      {hasActiveFilter && currentView === 'storefront' && (
         <div className="bg-amber-50 border-b border-amber-200 py-2 px-4 text-xs flex items-center justify-between max-w-[1480px] mx-auto w-full">
           <div className="flex items-center gap-2">
             <span className="font-bold text-amber-900">Filtered view:</span>
@@ -245,7 +294,20 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="w-full pb-10 flex-1">
-        {selectedProduct ? (
+        {currentView === 'erp' ? (
+          <ErpDashboard
+            onBackToStorefront={() => setCurrentView('storefront')}
+            currentUser={currentUser || { username: 'staff', role: 'staff', name: 'Operations Staff' }}
+          />
+        ) : currentView === 'pc-builder' ? (
+          <CustomPcBuilderPage
+            onBack={() => setCurrentView('storefront')}
+            onAddCustomBuildToCart={(rig) => {
+              handleAddToCart(rig);
+              setIsCartOpen(true);
+            }}
+          />
+        ) : selectedProduct ? (
           <ProductDetailPage
             product={selectedProduct}
             onBack={() => {
@@ -462,6 +524,17 @@ export default function App() {
       <SignInModal
         isOpen={isSignInModalOpen}
         onClose={() => setIsSignInModalOpen(false)}
+      />
+
+      <LoginModal
+        isOpen={isStaffLoginOpen}
+        onClose={() => setIsStaffLoginOpen(false)}
+        onLoginSuccess={(user) => {
+          setCurrentUser(user);
+          setIsStaffLoginOpen(false);
+          setCurrentView('erp');
+          showToast(`Welcome ${user.name}! ERP & Inventory Management Granted.`);
+        }}
       />
 
       <OrdersModal

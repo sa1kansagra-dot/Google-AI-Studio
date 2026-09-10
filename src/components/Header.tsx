@@ -17,6 +17,11 @@ interface HeaderProps {
   onOpenTechDesk: () => void;
   onOpenDepartmentMenu: () => void;
   onSelectCategoryFilter: (category: 'all' | 'laptop' | 'cpu' | 'deals') => void;
+  onOpenStaffLogin?: () => void;
+  onOpenPcBuilder?: () => void;
+  onOpenErpPortal?: () => void;
+  currentUser?: { username: string; role: 'admin' | 'staff'; name: string } | null;
+  onLogout?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -34,6 +39,11 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenTechDesk,
   onOpenDepartmentMenu,
   onSelectCategoryFilter,
+  onOpenStaffLogin,
+  onOpenPcBuilder,
+  onOpenErpPortal,
+  currentUser,
+  onLogout,
 }) => {
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [regionMenuOpen, setRegionMenuOpen] = useState(false);
@@ -231,16 +241,38 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {/* Staff Login Portal Button */}
-          <button
-            id="header-staff-login-btn"
-            onClick={onOpenSignInModal}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-[#232f3e] hover:bg-[#37475a] text-amber-400 rounded-full font-bold text-xs shadow-sm transition-all cursor-pointer border border-amber-500/40"
-            title="Open Staff Portal Login"
-          >
-            <span className="material-symbols-outlined text-[16px] text-amber-400">badge</span>
-            <span>Staff Login</span>
-          </button>
+          {/* Staff Login / ERP Portal Button */}
+          {currentUser ? (
+            <div className="hidden md:flex items-center gap-2">
+              <button
+                id="header-erp-portal-btn"
+                onClick={onOpenErpPortal}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold text-xs shadow-sm transition-all cursor-pointer border border-emerald-500/40"
+                title="Open PC Ware ERP Management System"
+              >
+                <span className="material-symbols-outlined text-[16px]">inventory_2</span>
+                <span>ERP Portal ({currentUser.role.toUpperCase()})</span>
+              </button>
+              <button
+                id="header-logout-btn"
+                onClick={onLogout}
+                className="text-gray-300 hover:text-white text-xs font-semibold underline"
+                title="Sign out of staff account"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button
+              id="header-staff-login-btn"
+              onClick={onOpenStaffLogin || onOpenSignInModal}
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-primary hover:bg-primary-hover text-white rounded-full font-bold text-xs shadow-sm transition-all cursor-pointer border border-orange-500/40"
+              title="Open Staff Portal Login"
+            >
+              <span className="material-symbols-outlined text-[16px] text-white">badge</span>
+              <span>Staff Login</span>
+            </button>
+          )}
 
           {/* Returns & Orders */}
           <button
@@ -344,11 +376,11 @@ export const Header: React.FC<HeaderProps> = ({
 
         <button
           id="subnav-configurator-btn"
-          onClick={onOpenConfiguratorModal}
+          onClick={onOpenPcBuilder || onOpenConfiguratorModal}
           className="hover:text-orange-400 py-0.5 text-orange-300 font-semibold flex items-center gap-1 transition-colors shrink-0"
         >
           <span className="material-symbols-outlined text-[15px]">tune</span>
-          Custom PC Configurator
+          10-Step Custom PC Builder
         </button>
 
         <button
