@@ -13,6 +13,7 @@ import { TrustStrip } from './components/TrustStrip';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { ProductModal } from './components/ProductModal';
+import { ProductDetailPage } from './components/ProductDetailPage';
 import { DeliveryModal } from './components/DeliveryModal';
 import { SignInModal } from './components/SignInModal';
 import { OrdersModal } from './components/OrdersModal';
@@ -244,156 +245,184 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="w-full pb-10 flex-1">
-        {/* 2. Hero & Signature Quad-Cards */}
-        <HeroBanner
-          onShopLaptops={() => {
-            const el = document.getElementById('laptops');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          onShopCPUs={() => {
-            const el = document.getElementById('cpus');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          onSelectProduct={(product) => setSelectedProduct(product)}
-        />
+        {selectedProduct ? (
+          <ProductDetailPage
+            product={selectedProduct}
+            onBack={() => {
+              setSelectedProduct(null);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onAddToCart={handleAddToCart}
+            onBuyNow={(prod) => {
+              handleAddToCart(prod);
+              setIsCartOpen(true);
+            }}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onOpenConfigurator={() => setIsConfiguratorOpen(true)}
+          />
+        ) : (
+          <>
+            {/* 2. Hero & Signature Quad-Cards */}
+            <HeroBanner
+              onShopLaptops={() => {
+                const el = document.getElementById('laptops');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              onShopCPUs={() => {
+                const el = document.getElementById('cpus');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              onSelectProduct={(product) => setSelectedProduct(product)}
+            />
 
-        <QuadCards
-          onSelectLaptopCategory={(cat) => {
-            setCategoryFilter('laptop');
-            const el = document.getElementById('laptops');
-            el?.scrollIntoView({ behavior: 'smooth' });
-            showToast(`Filtering view for: ${cat}`);
-          }}
-          onSelectCpuCategory={(cat) => {
-            setCategoryFilter('cpu');
-            const el = document.getElementById('cpus');
-            el?.scrollIntoView({ behavior: 'smooth' });
-            showToast(`Filtering view for: ${cat}`);
-          }}
-          onSelectProduct={(p) => setSelectedProduct(p)}
-          onOpenSignIn={() => setIsSignInModalOpen(true)}
-          onSeeAllDeals={() => {
-            setCategoryFilter('deals');
-            const el = document.getElementById('deals');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
+            <QuadCards
+              onSelectLaptopCategory={(cat) => {
+                setCategoryFilter('laptop');
+                const el = document.getElementById('laptops');
+                el?.scrollIntoView({ behavior: 'smooth' });
+                showToast(`Filtering view for: ${cat}`);
+              }}
+              onSelectCpuCategory={(cat) => {
+                setCategoryFilter('cpu');
+                const el = document.getElementById('cpus');
+                el?.scrollIntoView({ behavior: 'smooth' });
+                showToast(`Filtering view for: ${cat}`);
+              }}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+              onOpenSignIn={() => setIsSignInModalOpen(true)}
+              onSeeAllDeals={() => {
+                setCategoryFilter('deals');
+                const el = document.getElementById('deals');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
 
-        {/* 3. Horizontal Product Strip 1: High-Performance Laptops */}
-        {filteredLaptops.length > 0 && (
-          <section className="max-w-[1480px] mx-auto px-4 mt-6" id="laptops">
-            <div className="bg-white p-4 md:p-5 rounded shadow-sm border border-border-subtle">
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 border-b border-gray-100 pb-3 gap-2">
-                <div className="flex items-baseline gap-3">
-                  <h2 className="font-heading font-bold text-xl md:text-2xl text-text-dark">
-                    Best Sellers in High-Performance Laptops
-                  </h2>
-                  <span
+            {/* 3. Horizontal Product Strip 1: High-Performance Laptops */}
+            {filteredLaptops.length > 0 && (
+              <section className="max-w-[1480px] mx-auto px-4 mt-6" id="laptops">
+                <div className="bg-white p-4 md:p-5 rounded shadow-sm border border-border-subtle">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 border-b border-gray-100 pb-3 gap-2">
+                    <div className="flex items-baseline gap-3">
+                      <h2 className="font-heading font-bold text-xl md:text-2xl text-text-dark">
+                        Best Sellers in High-Performance Laptops
+                      </h2>
+                      <span
+                        onClick={() => {
+                          setCategoryFilter('laptop');
+                          setSearchQuery('');
+                        }}
+                        className="text-xs text-tertiary hover:underline cursor-pointer hidden md:inline"
+                      >
+                        See all 84 laptops
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-medium text-text-muted">
+                      <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded border border-emerald-200 font-mono text-[11px] font-bold">
+                        READY TO SHIP TODAY
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Laptops Carousel / Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {filteredLaptops.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                        onSelectProduct={(p) => {
+                          setSelectedProduct(p);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* 4. Horizontal Product Strip 2: Desktop Processors & Boxed CPUs */}
+            {filteredCPUs.length > 0 && (
+              <section className="max-w-[1480px] mx-auto px-4 mt-6" id="cpus">
+                <div className="bg-white p-4 md:p-5 rounded shadow-sm border border-border-subtle">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 border-b border-gray-100 pb-3 gap-2">
+                    <div className="flex items-baseline gap-3">
+                      <h2 className="font-heading font-bold text-xl md:text-2xl text-text-dark">
+                        Top Selling Desktop Processors & CPUs (Intel & AMD Boxed)
+                      </h2>
+                      <span
+                        onClick={() => {
+                          setCategoryFilter('cpu');
+                          setSearchQuery('');
+                        }}
+                        className="text-xs text-tertiary hover:underline cursor-pointer hidden md:inline"
+                      >
+                        See all 52 CPUs
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-text-muted">
+                      <span className="flex items-center gap-1 text-primary font-bold">
+                        <span className="material-symbols-outlined text-[16px]">verified</span> 100% Genuine Boxed with Factory Warranty
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* CPUs Carousel / Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {filteredCPUs.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                        onSelectProduct={(p) => {
+                          setSelectedProduct(p);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Empty state if search filter matches nothing */}
+            {filteredLaptops.length === 0 && filteredCPUs.length === 0 && (
+              <div className="max-w-[1480px] mx-auto px-4 mt-8">
+                <div className="bg-white p-12 text-center rounded border border-border-subtle space-y-3">
+                  <span className="material-symbols-outlined text-[48px] text-gray-400">search_off</span>
+                  <h3 className="font-heading font-bold text-lg text-gray-800">
+                    No matching hardware found for "{searchQuery}"
+                  </h3>
+                  <p className="text-xs text-gray-500 max-w-md mx-auto">
+                    Check your spelling or try searching for keywords like "Ryzen", "Core i9", "RTX 4090", "OLED", or "DDR5".
+                  </p>
+                  <button
                     onClick={() => {
-                      setCategoryFilter('laptop');
                       setSearchQuery('');
+                      setSelectedDepartment('All Departments');
+                      setCategoryFilter('all');
                     }}
-                    className="text-xs text-tertiary hover:underline cursor-pointer hidden md:inline"
+                    className="px-5 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded shadow"
                   >
-                    See all 84 laptops
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-text-muted">
-                  <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded border border-emerald-200 font-mono text-[11px] font-bold">
-                    READY TO SHIP TODAY
-                  </span>
+                    Reset Search
+                  </button>
                 </div>
               </div>
+            )}
 
-              {/* Laptops Carousel / Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {filteredLaptops.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    onSelectProduct={(p) => setSelectedProduct(p)}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
+            {/* 5. Frequently Bought Together CPU + Laptop Workspace Bundles */}
+            <BundleSection
+              onAddBundleToCart={handleAddBundleToCart}
+              onSelectProduct={(p) => {
+                setSelectedProduct(p);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* 6. Trust & Certified Services Strip */}
+            <TrustStrip onOpenTechDesk={() => setIsTechDeskOpen(true)} />
+          </>
         )}
-
-        {/* 4. Horizontal Product Strip 2: Desktop Processors & Boxed CPUs */}
-        {filteredCPUs.length > 0 && (
-          <section className="max-w-[1480px] mx-auto px-4 mt-6" id="cpus">
-            <div className="bg-white p-4 md:p-5 rounded shadow-sm border border-border-subtle">
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4 border-b border-gray-100 pb-3 gap-2">
-                <div className="flex items-baseline gap-3">
-                  <h2 className="font-heading font-bold text-xl md:text-2xl text-text-dark">
-                    Top Selling Desktop Processors & CPUs (Intel & AMD Boxed)
-                  </h2>
-                  <span
-                    onClick={() => {
-                      setCategoryFilter('cpu');
-                      setSearchQuery('');
-                    }}
-                    className="text-xs text-tertiary hover:underline cursor-pointer hidden md:inline"
-                  >
-                    See all 52 CPUs
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-text-muted">
-                  <span className="flex items-center gap-1 text-primary font-bold">
-                    <span className="material-symbols-outlined text-[16px]">verified</span> 100% Genuine Boxed with Factory Warranty
-                  </span>
-                </div>
-              </div>
-
-              {/* CPUs Carousel / Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filteredCPUs.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    onSelectProduct={(p) => setSelectedProduct(p)}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Empty state if search filter matches nothing */}
-        {filteredLaptops.length === 0 && filteredCPUs.length === 0 && (
-          <div className="max-w-[1480px] mx-auto px-4 mt-8">
-            <div className="bg-white p-12 text-center rounded border border-border-subtle space-y-3">
-              <span className="material-symbols-outlined text-[48px] text-gray-400">search_off</span>
-              <h3 className="font-heading font-bold text-lg text-gray-800">
-                No matching hardware found for "{searchQuery}"
-              </h3>
-              <p className="text-xs text-gray-500 max-w-md mx-auto">
-                Check your spelling or try searching for keywords like "Ryzen", "Core i9", "RTX 4090", "OLED", or "DDR5".
-              </p>
-              <button
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedDepartment('All Departments');
-                  setCategoryFilter('all');
-                }}
-                className="px-5 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded shadow"
-              >
-                Reset Search
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 5. Frequently Bought Together CPU + Laptop Workspace Bundles */}
-        <BundleSection
-          onAddBundleToCart={handleAddBundleToCart}
-          onSelectProduct={(p) => setSelectedProduct(p)}
-        />
-
-        {/* 6. Trust & Certified Services Strip */}
-        <TrustStrip onOpenTechDesk={() => setIsTechDeskOpen(true)} />
       </main>
 
       {/* 7. Footer (4-Tier Amazon Style) */}
